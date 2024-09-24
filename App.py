@@ -5,12 +5,12 @@ from bs4 import BeautifulSoup
 import requests
 import openai
 
-from weatherIslamabad import scrape_dataIslamabad, precipitationIslamabad
-from weatherkarachi import scrape_dataKarachi, precipitationKarachi
-from weatherlahore import scrape_dataLahore, precipitationLahore
-from weathergilgit import scrape_dataGilgit, precipitationGilgit
-from weatherQuetta import scrape_dataQuetta, precipitationQuetta
-from weatherpeshawar import scrape_dataPeshawar, precipitationPeshawar
+# from weatherIslamabad import scrape_dataIslamabad, precipitationIslamabad
+# from weatherkarachi import scrape_dataKarachi, precipitationKarachi
+# from weatherlahore import scrape_dataLahore, precipitationLahore
+# from weathergilgit import scrape_dataGilgit, precipitationGilgit
+# from weatherQuetta import scrape_dataQuetta, precipitationQuetta
+# from weatherpeshawar import scrape_dataPeshawar, precipitationPeshawar
 from weathertable import scrape_weekly_outlook
 from earthquakeUpdates import scrape_seismic_data1
 from Seismic import scrape_seismicity_maps
@@ -23,49 +23,49 @@ from Dought_rainfall_images import scrape_imageofRainfall_sources
 
 app = Flask(__name__)
 CORS(app)  
-
+ 
 openai.api_key = 'sk-proj-7Lv0uHPJj2CaBuX9Be83T3BlbkFJne3b2rF7A8n9pB93XfW9'
 
 
-def get_city_weather(city, cityname, scrape_function, precipitation_function):
-    url = f"https://www.metoffice.gov.uk/weather/forecast/{city}#?date={today_date.strftime('%Y-%m-%d')}"
-    scraped_data = scrape_function(url)
-    rain = precipitation_function(url)
+# def get_city_weather(city, cityname, scrape_function, precipitation_function):
+#     url = f"https://www.metoffice.gov.uk/weather/forecast/{city}#?date={today_date.strftime('%Y-%m-%d')}"
+#     scraped_data = scrape_function(url)
+#     rain = precipitation_function(url)
 
-    high_key = f'{cityname} High Temperature'
-    low_key = f'{cityname} Low Temperature'
+#     high_key = f'{cityname} High Temperature'
+#     low_key = f'{cityname} Low Temperature'
 
-    return {
-        'cityName': cityname,
-        'high': scraped_data.get(high_key, None),
-        'low': scraped_data.get(low_key, None),
-        'rain': rain,
-        'condition': scraped_data.get('Data Inside Span', None)
-    }
+#     return {
+#         'cityName': cityname,
+#         'high': scraped_data.get(high_key, None),
+#         'low': scraped_data.get(low_key, None),
+#         'rain': rain,
+#         'condition': scraped_data.get('Data Inside Span', None)
+#     }
 
-today_date = datetime.now().date()
+# today_date = datetime.now().date()
 
  
-day_of_month = today_date.strftime('%d')
+# day_of_month = today_date.strftime('%d')
 
-@app.route('/weather/all', methods=['GET'])
-def get_all_weather():
-    cities = [
-        ('ttgzybxnz', 'islamabad', scrape_dataIslamabad, precipitationIslamabad),
-        ('tkrtt71fb', 'karachi', scrape_dataKarachi, precipitationKarachi),
-        ('ttsg7rxb5', 'lahore', scrape_dataLahore, precipitationLahore),
-        ('twku77j3n', 'gilgit', scrape_dataGilgit, precipitationGilgit),
-        ('tmrs4y3xt', 'quetta', scrape_dataQuetta, precipitationQuetta),
-        ('tw51sgs68', 'peshawar', scrape_dataPeshawar, precipitationPeshawar)
-    ]
+# @app.route('/weather/all', methods=['GET'])
+# def get_all_weather():
+#     cities = [
+#         # ('ttgzybxnz', 'islamabad', scrape_dataIslamabad, precipitationIslamabad),
+#         ('tkrtt71fb', 'karachi', scrape_dataKarachi, precipitationKarachi),
+#         ('ttsg7rxb5', 'lahore', scrape_dataLahore, precipitationLahore),
+#         ('twku77j3n', 'gilgit', scrape_dataGilgit, precipitationGilgit),
+#         ('tmrs4y3xt', 'quetta', scrape_dataQuetta, precipitationQuetta),
+#         ('tw51sgs68', 'peshawar', scrape_dataPeshawar, precipitationPeshawar)
+#     ]
 
-    all_data = []
+#     all_data = []
 
-    for city in cities:
-        city_data = get_city_weather(*city)
-        all_data.append(city_data)
+#     for city in cities:
+#         city_data = get_city_weather(*city)
+#         all_data.append(city_data)
 
-    return jsonify(all_data)
+#     return jsonify(all_data)
 
 @app.route('/news', methods=['GET'])
 def get_news():

@@ -65,3 +65,4 @@ islamabadHigh = scraped_data['islamabad High Temperature']
 islamabadLow = scraped_data['islamabad Low Temperature']
 condition = scraped_data['Data Inside Span']
 
+ 
